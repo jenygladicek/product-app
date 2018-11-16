@@ -15,14 +15,20 @@ class ProductTable extends Component {
   render() {
     const {filterText , inStockOnly, productData} = this.state;
     let lastCategory = null;
-    const createRowItems = productData.filter(rowItem =>{
-        const name = rowItem.name;
-        if(name.toLowerCase().search(
-            filterText.toLowerCase()) !== -1)
-            return;
-        if(inStockOnly && !rowItem.stocked)
-            return;
-    });
+    let rows = [];
+    productData.forEach((product) => {
+        if (product.name.indexOf(filterText) === -1) {
+          return;
+        }
+        if (inStockOnly && !product.stocked) {
+          return;
+        }
+        if (product.category !== lastCategory) {
+            rows.push(<ProductCategoryRow category={product.category} key={product.category} />);
+          }
+        rows.push(<ProductRow product={product} key={product.id} />)
+        lastCategory = product.category;
+    })
     return (
       <div>
         <table className="table table-bordered">
@@ -33,13 +39,7 @@ class ProductTable extends Component {
                 </tr>
             </thead>
             <tbody>
-                {createRowItems.map(row =>{
-                    if(row.category !== lastCategory){
-                        return(<ProductCategoryRow category={row.category} key={row.id} />)
-                     }
-                    return(<ProductRow product={row} key={row.id} />)
-                    lastCategory = row.category;
-                })}       
+                {rows}       
             </tbody>
         </table>
       </div>
