@@ -19,11 +19,17 @@ class FilterableProductTable extends Component {
               inStockOnly  : false
         }
     }
+  textChange = (text) =>{
+    this.setState({filterText : text})
+  }
+  checkChange = (checkval) =>{
+    this.setState({inStockOnly : checkval})
+  }
   render() {
     return (
       <div className="container">
         <header><h1>List of products</h1></header>
-        <SearchBar filterText = {this.state.filterText} inStockOnly = {this.state.inStockOnly}/>
+        <SearchBar filterText = {this.state.filterText} inStockOnly = {this.state.inStockOnly} onFilterTextChange = {this.textChange} onInStockChange = {this.checkChange}/>
         <ProductTable productData = {this.state.productData} filterText = {this.state.filterText} inStockOnly = {this.state.inStockOnly}/>
       </div>
     );

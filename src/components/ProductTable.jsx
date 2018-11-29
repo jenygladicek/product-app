@@ -6,14 +6,10 @@ import ProductCategoryRow from "./ProductCategoryRow";
 class ProductTable extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            filterText : this.props.filterText,
-            inStockOnly : this.props.inStockOnly,
-            productData : this.props.productData
-        }
     }
   render() {
-    const {filterText , inStockOnly, productData} = this.state;
+    const {filterText , inStockOnly, productData} = this.props;
+    console.log(filterText,"text",inStockOnly,"stock");
     let lastCategory = null;
     let rows = [];
     productData.forEach((product) => {

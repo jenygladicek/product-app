@@ -3,22 +3,20 @@ import React, { Component } from 'react';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            filterText : this.props.filterText,
-            inStockOnly : this.props.inStockOnly
-        }
     }
     onChange = e =>{
-        this.setState({filterText : e.target.value});
+        console.log(e.target.value,"first onchange");
+        this.props.onFilterTextChange(e.target.value);
     }
     checkChange = e =>{
-        this.setState({inStockOnly : e.target.checked});
+        console.log(e.target.checked,"2nd onchange");
+        this.props.onInStockChange(e.target.checked);
     }
   render(){
     return (
       <div>
-        <div><input type="text" name="search" placeholder="Search..." value={this.state.filterText} onChange={this.onChange}/></div>
-        <div><label><input type="checkbox" name="stock" checked={this.state.inStockOnly} onChange={this.checkChange}/>Only show products in stock</label></div>
+        <div><input type="text" name="search" placeholder="Search..." value={this.props.filterText} onChange={this.onChange}/></div>
+        <div><label><input type="checkbox" name="stock" checked={this.props.inStockOnly} onChange={this.checkChange}/>Only show products in stock</label></div>
       </div>
     );
   }
